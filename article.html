@@ -1,0 +1,540 @@
+<title>Test Cases to Prompts</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg: #E9ECE6;
+    --surface: #F7F6F1;
+    --surface-2: #DEE3D8;
+    --ink: #16201B;
+    --ink-soft: #4E594E;
+    --ink-faint: #7C8578;
+    --line: #C6CFC0;
+    --accent: #A9660F;
+    --accent-ink: #6E4409;
+    --pass: #29684A;
+    --pass-ink: #ECF3EC;
+    --fail: #9A4A2A;
+    --chip-bg: #16201B;
+    --chip-ink: #EEEEE6;
+    --shadow: 0 1px 0 rgba(22,32,27,0.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #10150F;
+      --surface: #171D15;
+      --surface-2: #212B1E;
+      --ink: #E7ECE3;
+      --ink-soft: #AEB8A8;
+      --ink-faint: #7C8578;
+      --line: #2C362A;
+      --accent: #E2A354;
+      --accent-ink: #F4DDB6;
+      --pass: #6FC393;
+      --pass-ink: #0E1A13;
+      --fail: #D98E6E;
+      --chip-bg: #E7ECE3;
+      --chip-ink: #171D15;
+      --shadow: 0 1px 0 rgba(0,0,0,0.3);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #10150F;
+    --surface: #171D15;
+    --surface-2: #212B1E;
+    --ink: #E7ECE3;
+    --ink-soft: #AEB8A8;
+    --ink-faint: #7C8578;
+    --line: #2C362A;
+    --accent: #E2A354;
+    --accent-ink: #F4DDB6;
+    --pass: #6FC393;
+    --pass-ink: #0E1A13;
+    --fail: #D98E6E;
+    --chip-bg: #E7ECE3;
+    --chip-ink: #171D15;
+    --shadow: 0 1px 0 rgba(0,0,0,0.3);
+  }
+
+  *{ box-sizing: border-box; }
+  body{
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection{ background: var(--accent); color: var(--pass-ink); }
+
+  .wrap{
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+
+  .mono{
+    font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  /* ---------- Header / case block ---------- */
+  .case{
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 4px;
+    padding: 28px 28px 24px;
+    box-shadow: var(--shadow);
+  }
+  .case-meta{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    align-items: center;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .case-meta span b{
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  h1{
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: clamp(30px, 5vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .dek{
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 60ch;
+    margin: 0 0 22px;
+  }
+  .byline{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .byline .name{ color: var(--ink); font-weight: 600; }
+  .byline a{
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .byline a:hover{ color: var(--accent); border-color: var(--accent); }
+  .dot{ color: var(--ink-faint); }
+
+  .verdict{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+    padding: 8px 14px;
+    border: 1.5px solid var(--pass);
+    color: var(--pass);
+    border-radius: 3px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    transform: rotate(-1.5deg) scale(0.9);
+    opacity: 0;
+    animation: stamp 0.5s cubic-bezier(.2,1.4,.4,1) 0.15s forwards;
+  }
+  .verdict::before{ content: "✓"; font-weight: 700; }
+  @keyframes stamp{
+    0%{ opacity: 0; transform: rotate(-1.5deg) scale(1.4); }
+    60%{ opacity: 1; }
+    100%{ opacity: 1; transform: rotate(-1.5deg) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .verdict{ animation: none; opacity: 1; transform: rotate(-1.5deg) scale(1); }
+  }
+
+  /* ---------- Body copy ---------- */
+  article{ margin-top: 40px; }
+  p{
+    font-size: 17px;
+    line-height: 1.7;
+    max-width: 66ch;
+    margin: 0 0 20px;
+  }
+  p em{ font-style: italic; color: var(--ink); }
+  .lede{ font-size: 19px; color: var(--ink); }
+
+  h2{
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    margin: 52px 0 16px;
+  }
+  h3.eyebrow{
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 8px;
+    font-weight: 600;
+  }
+
+  code.eq{
+    font-family: "IBM Plex Mono", monospace;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 1px 7px;
+    font-size: 0.92em;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  blockquote{
+    margin: 36px 0;
+    padding: 4px 0 4px 22px;
+    border-left: 3px solid var(--accent);
+    max-width: 58ch;
+  }
+  blockquote p{
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.35;
+    color: var(--ink);
+    margin: 0;
+  }
+
+  /* ---------- Comparison table ---------- */
+  .table-scroll{ overflow-x: auto; margin: 22px 0 8px; }
+  table{
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 520px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  thead th{
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: left;
+    color: var(--ink-faint);
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--line);
+    font-weight: 600;
+  }
+  tbody td{
+    padding: 14px 18px;
+    font-size: 15px;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  tbody tr:last-child td{ border-bottom: none; }
+  tbody tr:hover{ background: var(--surface-2); }
+  td.qa{
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  td.ai{ color: var(--ink); position: relative; }
+  td.ai::before{
+    content: "→";
+    color: var(--accent);
+    margin-right: 8px;
+    font-weight: 600;
+  }
+
+  /* ---------- Numbered skill sections ---------- */
+  .skill{
+    display: flex;
+    gap: 22px;
+    margin: 44px 0 8px;
+  }
+  .skill .num{
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink-faint);
+    padding-top: 4px;
+    flex: none;
+    width: 30px;
+  }
+  .skill .body{ flex: 1; min-width: 0; }
+  .skill h2{ margin-top: 0; }
+
+  /* ---------- View pairs (QA view / AI PM view) ---------- */
+  .pairs{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    margin: 22px 0 28px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  .pair{ padding: 18px 20px; }
+  .pair + .pair{ border-left: 1px dashed var(--line); }
+  .pair .tag{
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .pair p{ font-size: 14.5px; line-height: 1.6; margin: 0; max-width: none; }
+  @media (max-width: 560px){
+    .pairs{ grid-template-columns: 1fr; }
+    .pair + .pair{ border-left: none; border-top: 1px dashed var(--line); }
+  }
+
+  /* ---------- Prompt fail/pass blocks ---------- */
+  .prompt-case{
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 22px 0 30px;
+    background: var(--surface);
+  }
+  .prompt-row{ padding: 16px 20px; }
+  .prompt-row + .prompt-row{ border-top: 1px solid var(--line); }
+  .prompt-row .flag{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .prompt-row.fail .flag{ color: var(--fail); }
+  .prompt-row.pass .flag{ color: var(--pass); }
+  .prompt-row .flag::before{
+    content: "";
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .prompt-text{
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 12px 14px;
+    margin: 0;
+  }
+  .prompt-row .note{
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin: 8px 0 0;
+    max-width: none;
+  }
+
+  strong.callout{
+    background: linear-gradient(to bottom, transparent 62%, var(--surface-2) 62%);
+    font-weight: 600;
+  }
+
+  hr.rule{
+    border: none;
+    border-top: 1px dashed var(--line);
+    margin: 56px 0 40px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    margin-top: 8px;
+    padding-top: 4px;
+  }
+  .signoff{
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--ink-soft);
+    margin: 0 0 28px;
+    max-width: 56ch;
+  }
+  .card-author{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    border-radius: 4px;
+    padding: 18px 22px;
+  }
+  .card-author .who .name{
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .card-author .who .role{
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  .links{ display: flex; gap: 14px; font-size: 13px; }
+  .links a{
+    font-family: "IBM Plex Mono", monospace;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 1px;
+  }
+  .links a:hover{ color: var(--accent); border-color: var(--accent); }
+
+  .source-note{
+    margin-top: 20px;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    text-align: center;
+  }
+  .source-note a{ color: var(--ink-faint); }
+</style>
+
+<div class="wrap">
+
+  <div class="case">
+    <div class="case-meta mono">
+      <span>CASE&nbsp;<b>QA&#8209;2AI&#8209;001</b></span>
+      <span>TYPE&nbsp;<b>Career&nbsp;Transition</b></span>
+      <span>READ&nbsp;<b>7&nbsp;min</b></span>
+    </div>
+    <h1>From Test Cases to Prompts</h1>
+    <p class="dek">Why the instinct to break things on purpose is exactly what AI product teams are short on right now.</p>
+    <div class="byline">
+      <span class="name">Rehnuma Tarannum</span>
+      <span class="dot">·</span>
+      <span>QA Engineer</span>
+      <span class="dot">·</span>
+      <a href="https://www.linkedin.com/in/rehnuma-tarannum1/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/RehnumaT" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="verdict">Verdict: QA → AI PM is a transferable skill set</div>
+  </div>
+
+  <article>
+    <p class="lede">If you've spent years in Quality Assurance, your default state of mind is professional skepticism. When a developer hands you a shiny new feature, your first thought isn't <em>"How wonderful!"</em> — it's <em>"Okay, how is a user going to break this, and what happens when they do?"</em></p>
+
+    <p>For years, that mindset made you the ultimate gatekeeper of software quality. Today, it makes you uniquely qualified to be an <strong>AI Product Manager</strong>.</p>
+
+    <p>As the tech industry pivots from deterministic software — where <code class="eq">A + B = C</code> every single time — to probabilistic AI systems, where <code class="eq">A + B ≈ C</code>, unless the model is feeling creative, the biggest bottleneck isn't building the models. It's <strong class="callout">controlling and defining their behavior.</strong></p>
+
+    <p>And who spends their entire career defining expected behavior and testing boundaries? You do.</p>
+
+    <h2>The Anatomy Comparison: Test Case vs. System Prompt</h2>
+    <p>To understand why QA professionals transition so naturally into AI PM and prompt engineering roles, look at how your daily workflow maps directly onto working with a large language model.</p>
+
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr><th>Traditional QA Artifact</th><th>AI Product Equivalent</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="qa">Input Parameters</td><td class="ai">User Prompts / Context Variables</td></tr>
+          <tr><td class="qa">Pre-conditions</td><td class="ai">System Prompts &amp; Guardrails</td></tr>
+          <tr><td class="qa">Expected Results</td><td class="ai">Output Schemas / Few-Shot Examples</td></tr>
+          <tr><td class="qa">Edge Cases &amp; Boundary Tests</td><td class="ai">Adversarial Prompting &amp; Red Teaming</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>When you write a test case, you aren't typing random inputs. You're constructing a logical boundary condition — the setup, the exact sequence of actions, and the strict criteria for a pass or a fail.</p>
+
+    <p>Now look at how a modern AI prompt is structured. Advanced prompting isn't magic or creative writing; it's spec-driven logic. You define persona, context, constraints, and formatting rules.</p>
+
+    <blockquote><p>A well-structured system prompt is essentially an executable test specification.</p></blockquote>
+
+    <div class="skill">
+      <div class="num">01</div>
+      <div class="body">
+        <h2>Anticipating Edge Cases</h2>
+        <p>The best QA engineers share a trait: a delightfully destructive imagination. While developers write code to make the happy path work, QA engineers live in the shadows of the unhappy path. What happens if someone pastes 50,000 words into a single-line input field? What happens if they enter emojis into a numeric age field?</p>
+        <p>In AI, this skill becomes exponentially more valuable. Models are notoriously susceptible to edge cases, hallucinations, jailbreaks, and prompt injections.</p>
+
+        <div class="pairs">
+          <div class="pair">
+            <span class="tag">The QA View</span>
+            <p>You write boundary-value test cases to see if an input validation script crashes.</p>
+          </div>
+          <div class="pair">
+            <span class="tag">The AI PM View</span>
+            <p>You anticipate user workarounds, prompt injections, and semantic ambiguities to design guardrails that stop an LLM from giving bad medical advice or leaking system instructions.</p>
+          </div>
+        </div>
+
+        <p>Because you already ask <em>"how can this behave in a way we didn't intend?"</em>, you naturally know how to stress-test a model before it ever reaches a real user.</p>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="num">02</div>
+      <div class="body">
+        <h2>Clear Acceptance Criteria = Structured Output</h2>
+        <p>Have you ever stared at a vague Jira ticket that read <em>"Make the search bar smarter"</em>? As QA, your immediate response was probably to push back: smarter how? By keyword or semantic intent? What's the latency threshold? What happens on zero results?</p>
+        <p>You thrive on precision — software only does what you explicitly tell it to do. With LLMs, ambiguity is the enemy. Prompt an AI with <em>"Write a summary of this document"</em> and you'll get wildly inconsistent lengths, tones, and formats. The fix is the same rigor you already use writing acceptance criteria.</p>
+
+        <div class="prompt-case">
+          <div class="prompt-row fail">
+            <span class="flag">Fail — no acceptance criteria</span>
+            <p class="prompt-text">"Write a summary of this document."</p>
+            <p class="note">Output length, tone, and format are all undefined — three different runs, three different results.</p>
+          </div>
+          <div class="prompt-row pass">
+            <span class="flag">Pass — constraints defined</span>
+            <p class="prompt-text">"Summarize the document in 3 bullet points, using a professional tone, strictly based on the provided text."</p>
+            <p class="note">Adding input-output examples (few-shot prompting) is the same move as writing parameterized test scenarios — you're showing the model the expected transformation matrix.</p>
+          </div>
+        </div>
+
+        <p>Treat prompt engineering as an extension of acceptance criteria, and you stop guessing-and-checking and start building reproducible, programmatic interactions.</p>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <h2>From Gatekeeper to Architect</h2>
+    <p>Transitioning from QA to an AI Product Manager doesn't mean leaving your analytical roots behind — it means scaling them. Instead of testing code someone else wrote, you're defining the intent, behavior, and safety parameters of a cognitive system.</p>
+    <p>Your superpower was never that you can build a neural network from scratch. It's that <strong class="callout">you know how software breaks, how requirements fail, and how to define boundaries.</strong> In a world full of AI hype, that disciplined, QA-honed mindset is precisely what product teams are searching for.</p>
+  </article>
+
+  <footer>
+    <p class="signoff">The gatekeeper already knows what "broken" looks like. That's the whole job now.</p>
+    <div class="card-author">
+      <div class="who">
+        <div class="name">Rehnuma Tarannum</div>
+        <div class="role">QA Engineer, thinking in prompts</div>
+      </div>
+      <div class="links">
+        <a href="https://www.linkedin.com/in/rehnuma-tarannum1/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a href="https://github.com/RehnumaT" target="_blank" rel="noopener">GitHub ↗</a>
+      </div>
+    </div>
+    <p class="source-note">Versioned on GitHub at <a href="https://github.com/RehnumaT/test-cases-to-prompts" target="_blank" rel="noopener">github.com/RehnumaT/test-cases-to-prompts</a></p>
+  </footer>
+
+</div>
