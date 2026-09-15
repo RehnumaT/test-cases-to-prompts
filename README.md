@@ -6,6 +6,8 @@
 
 **Read the designed version →** [rehnuma-test-cases-to-prompts (live page)](https://claude.ai/code/artifact/f8e99adc-d896-4734-a34e-19bbf25ab7ee)
 
+**Presenter video script →** [video-script.md](video-script.md) — a timed voiceover script (cause → goal → purpose → outcome) for use with an AI-avatar tool like Synthesia/HeyGen/D-ID, or to record yourself
+
 ---
 
 If you've spent years in Quality Assurance, your default state of mind is professional skepticism. When a developer hands you a shiny new feature, your first thought isn't *"How wonderful!"* — it's *"Okay, how is a user going to break this, and what happens when they do?"*
