@@ -1,192 +1,225 @@
 <title>Test Cases to Prompts</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;600;700;800;900&family=Lora:ital,wght@0,400;0,500;0,600;1,500;1,600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap">
 <style>
   :root{
-    --bg: #E9ECE6;
-    --surface: #F7F6F1;
-    --surface-2: #DEE3D8;
-    --ink: #16201B;
-    --ink-soft: #4E594E;
-    --ink-faint: #7C8578;
-    --line: #C6CFC0;
-    --accent: #A9660F;
-    --accent-ink: #6E4409;
-    --pass: #29684A;
-    --pass-ink: #ECF3EC;
-    --fail: #9A4A2A;
-    --chip-bg: #16201B;
-    --chip-ink: #EEEEE6;
-    --shadow: 0 1px 0 rgba(22,32,27,0.06);
+    --bg: #FBF9F4;
+    --surface: #F1ECE1;
+    --surface-2: #E7E0D0;
+    --ink: #16130F;
+    --ink-soft: #5B5347;
+    --ink-faint: #8C8471;
+    --line: #DBD3C1;
+    --accent: #C81E3A;
+    --on-accent: #FFF7EF;
+    --pass: #1F6F4A;
+    --on-pass: #F2FAF4;
+    --panel-bg: #171310;
+    --panel-ink: #F7F2EA;
+    --panel-accent: #FF4B4B;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg: #10150F;
-      --surface: #171D15;
-      --surface-2: #212B1E;
-      --ink: #E7ECE3;
-      --ink-soft: #AEB8A8;
-      --ink-faint: #7C8578;
-      --line: #2C362A;
-      --accent: #E2A354;
-      --accent-ink: #F4DDB6;
-      --pass: #6FC393;
-      --pass-ink: #0E1A13;
-      --fail: #D98E6E;
-      --chip-bg: #E7ECE3;
-      --chip-ink: #171D15;
-      --shadow: 0 1px 0 rgba(0,0,0,0.3);
+      --bg: #121009;
+      --surface: #1C1811;
+      --surface-2: #29231A;
+      --ink: #F3EEE2;
+      --ink-soft: #C2B8A3;
+      --ink-faint: #8C8471;
+      --line: #362F22;
+      --accent: #FF5C5C;
+      --on-accent: #1B0605;
+      --pass: #5FCB93;
+      --on-pass: #06180F;
     }
   }
   :root[data-theme="dark"]{
-    --bg: #10150F;
-    --surface: #171D15;
-    --surface-2: #212B1E;
-    --ink: #E7ECE3;
-    --ink-soft: #AEB8A8;
-    --ink-faint: #7C8578;
-    --line: #2C362A;
-    --accent: #E2A354;
-    --accent-ink: #F4DDB6;
-    --pass: #6FC393;
-    --pass-ink: #0E1A13;
-    --fail: #D98E6E;
-    --chip-bg: #E7ECE3;
-    --chip-ink: #171D15;
-    --shadow: 0 1px 0 rgba(0,0,0,0.3);
+    --bg: #121009;
+    --surface: #1C1811;
+    --surface-2: #29231A;
+    --ink: #F3EEE2;
+    --ink-soft: #C2B8A3;
+    --ink-faint: #8C8471;
+    --line: #362F22;
+    --accent: #FF5C5C;
+    --on-accent: #1B0605;
+    --pass: #5FCB93;
+    --on-pass: #06180F;
   }
 
   *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior: auto; } }
   body{
     margin: 0;
     background: var(--bg);
     color: var(--ink);
-    font-family: "Source Sans 3", ui-sans-serif, system-ui, sans-serif;
+    font-family: "Lora", Georgia, serif;
     -webkit-font-smoothing: antialiased;
   }
-  ::selection{ background: var(--accent); color: var(--pass-ink); }
+  ::selection{ background: var(--accent); color: var(--on-accent); }
+  a{ color: inherit; }
 
-  .wrap{
-    max-width: 760px;
-    margin: 0 auto;
-    padding: 56px 24px 80px;
+  .mono{ font-family: "IBM Plex Mono", ui-monospace, Menlo, monospace; }
+  .display{ font-family: "Big Shoulders Display", ui-sans-serif, system-ui, sans-serif; }
+
+  .wrap{ max-width: 780px; margin: 0 auto; padding: 40px 24px 90px; }
+
+  /* ---------- Masthead ---------- */
+  .kicker-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .kicker{
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .issue-tag{
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  .rule-thick{
+    height: 4px;
+    background: var(--accent);
+    margin-bottom: 26px;
+    animation: draw 0.6s ease-out forwards;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  @keyframes draw{ to{ transform: scaleX(1); } }
+  @media (prefers-reduced-motion: reduce){ .rule-thick{ transform: scaleX(1); animation: none; } }
+
+  h1{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(46px, 9vw, 92px);
+    line-height: 0.92;
+    letter-spacing: -0.01em;
+    margin: 0 0 22px;
+    text-wrap: balance;
+  }
+  h1 .hl{ color: var(--accent); }
+  h1 span.line{
+    display: block;
+    opacity: 0;
+    transform: translateY(0.35em);
+    animation: rise 0.55s cubic-bezier(.2,.8,.3,1) forwards;
+  }
+  h1 span.line:nth-child(2){ animation-delay: 0.09s; }
+  @media (prefers-reduced-motion: reduce){
+    h1 span.line{ opacity: 1; transform: none; animation: none; }
+  }
+  @keyframes rise{ to{ opacity: 1; transform: translateY(0); } }
+
+  .dek{
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    font-style: italic;
+    max-width: 56ch;
+    margin: 0 0 22px;
   }
 
-  .mono{
-    font-family: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  .byline-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12.5px;
   }
+  .byline-row .who b{ font-weight: 700; color: var(--ink); }
+  .byline-row .who{ color: var(--ink-soft); }
+  .byline-row .links a{
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin-left: 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .byline-row .links a:hover{ color: var(--accent); border-color: var(--accent); }
 
-  /* ---------- Header / case block ---------- */
-  .case{
-    border: 1px solid var(--line);
-    background: var(--surface);
-    border-radius: 4px;
-    padding: 28px 28px 24px;
-    box-shadow: var(--shadow);
-  }
-  .case-meta{
+  .contents{
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 18px;
-    align-items: center;
+    gap: 10px 0;
+    margin: 22px 0 6px;
+    font-family: "IBM Plex Mono", monospace;
     font-size: 12px;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--ink-faint);
-    padding-bottom: 16px;
-    margin-bottom: 20px;
-    border-bottom: 1px dashed var(--line);
   }
-  .case-meta span b{
-    color: var(--ink-soft);
-    font-weight: 600;
-  }
-  h1{
-    font-family: "Fraunces", Georgia, serif;
-    font-weight: 600;
-    font-size: clamp(30px, 5vw, 44px);
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    margin: 0 0 14px;
-    text-wrap: balance;
-  }
-  .dek{
-    font-size: 17px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    max-width: 60ch;
-    margin: 0 0 22px;
-  }
-  .byline{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 14px;
-    font-size: 14px;
-    color: var(--ink-soft);
-  }
-  .byline .name{ color: var(--ink); font-weight: 600; }
-  .byline a{
-    color: var(--ink-soft);
-    text-decoration: none;
-    border-bottom: 1px solid var(--line);
-  }
-  .byline a:hover{ color: var(--accent); border-color: var(--accent); }
-  .dot{ color: var(--ink-faint); }
+  .contents a{ color: var(--ink-soft); text-decoration: none; }
+  .contents a:hover{ color: var(--accent); }
+  .contents .sep{ margin: 0 10px; color: var(--accent); }
 
   .verdict{
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-top: 22px;
-    padding: 8px 14px;
-    border: 1.5px solid var(--pass);
-    color: var(--pass);
-    border-radius: 3px;
+    margin-top: 26px;
+    padding: 9px 16px;
+    background: var(--accent);
+    color: var(--on-accent);
+    border-radius: 2px;
+    font-family: "IBM Plex Mono", monospace;
     font-size: 12px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 600;
-    transform: rotate(-1.5deg) scale(0.9);
+    font-weight: 700;
+    transform: rotate(-1.4deg) scale(0.9);
     opacity: 0;
-    animation: stamp 0.5s cubic-bezier(.2,1.4,.4,1) 0.15s forwards;
+    animation: stamp 0.5s cubic-bezier(.2,1.4,.4,1) 0.25s forwards;
   }
   .verdict::before{ content: "✓"; font-weight: 700; }
   @keyframes stamp{
-    0%{ opacity: 0; transform: rotate(-1.5deg) scale(1.4); }
+    0%{ opacity: 0; transform: rotate(-1.4deg) scale(1.5); }
     60%{ opacity: 1; }
-    100%{ opacity: 1; transform: rotate(-1.5deg) scale(1); }
+    100%{ opacity: 1; transform: rotate(-1.4deg) scale(1); }
   }
   @media (prefers-reduced-motion: reduce){
-    .verdict{ animation: none; opacity: 1; transform: rotate(-1.5deg) scale(1); }
+    .verdict{ animation: none; opacity: 1; transform: rotate(-1.4deg) scale(1); }
   }
 
   /* ---------- Body copy ---------- */
-  article{ margin-top: 40px; }
-  p{
-    font-size: 17px;
-    line-height: 1.7;
-    max-width: 66ch;
-    margin: 0 0 20px;
+  article{ margin-top: 46px; }
+  p{ font-size: 18px; line-height: 1.75; max-width: 65ch; margin: 0 0 22px; }
+  p em{ font-style: italic; }
+
+  .lede::first-letter{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 800;
+    font-size: 4.4em;
+    line-height: 0.78;
+    float: left;
+    padding: 0.03em 0.07em 0 0;
+    color: var(--accent);
   }
-  p em{ font-style: italic; color: var(--ink); }
-  .lede{ font-size: 19px; color: var(--ink); }
 
   h2{
-    font-family: "Fraunces", Georgia, serif;
-    font-weight: 600;
-    font-size: 26px;
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(28px, 4.4vw, 38px);
     letter-spacing: -0.005em;
     text-wrap: balance;
-    margin: 52px 0 16px;
-  }
-  h3.eyebrow{
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 8px;
-    font-weight: 600;
+    margin: 58px 0 18px;
+    scroll-margin-top: 24px;
   }
 
   code.eq{
@@ -195,52 +228,71 @@
     border: 1px solid var(--line);
     border-radius: 3px;
     padding: 1px 7px;
-    font-size: 0.92em;
+    font-size: 0.9em;
     color: var(--ink);
     white-space: nowrap;
   }
-
-  blockquote{
-    margin: 36px 0;
-    padding: 4px 0 4px 22px;
-    border-left: 3px solid var(--accent);
-    max-width: 58ch;
+  strong.callout{
+    background: linear-gradient(to bottom, transparent 60%, var(--surface-2) 60%);
+    font-weight: 600;
   }
-  blockquote p{
-    font-family: "Fraunces", Georgia, serif;
+
+  /* ---------- Breakout pull quote ---------- */
+  .breakout{
+    position: relative;
+    background: var(--panel-bg);
+    color: var(--panel-ink);
+    margin: 44px calc(-1 * clamp(0px, 6vw, 60px)) 44px;
+    padding: 46px clamp(24px, 8vw, 68px) 40px;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .breakout .mark{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-size: 130px;
+    line-height: 1;
+    position: absolute;
+    top: -18px;
+    left: 18px;
+    color: var(--panel-accent);
+    opacity: 0.55;
+    font-weight: 800;
+  }
+  .breakout p{
+    position: relative;
+    font-family: "Lora", serif;
     font-style: italic;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 1.35;
-    color: var(--ink);
+    font-weight: 600;
+    font-size: clamp(22px, 3.6vw, 30px);
+    line-height: 1.34;
+    max-width: 30ch;
     margin: 0;
+    color: var(--panel-ink);
   }
 
   /* ---------- Comparison table ---------- */
-  .table-scroll{ overflow-x: auto; margin: 22px 0 8px; }
+  .table-scroll{ overflow-x: auto; margin: 24px 0 8px; border-radius: 3px; }
   table{
     width: 100%;
     border-collapse: collapse;
-    min-width: 520px;
+    min-width: 540px;
     background: var(--surface);
     border: 1px solid var(--line);
-    border-radius: 4px;
-    overflow: hidden;
   }
   thead th{
     font-family: "IBM Plex Mono", monospace;
-    font-size: 11px;
+    font-size: 11.5px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     text-align: left;
-    color: var(--ink-faint);
-    padding: 12px 18px;
-    border-bottom: 1px solid var(--line);
-    font-weight: 600;
+    color: var(--on-accent);
+    background: var(--accent);
+    padding: 13px 18px;
+    font-weight: 700;
   }
   tbody td{
-    padding: 14px 18px;
-    font-size: 15px;
+    padding: 15px 18px;
+    font-size: 15.5px;
     border-bottom: 1px solid var(--line);
     vertical-align: top;
   }
@@ -252,45 +304,37 @@
     color: var(--ink-soft);
     white-space: nowrap;
   }
-  td.ai{ color: var(--ink); position: relative; }
-  td.ai::before{
-    content: "→";
-    color: var(--accent);
-    margin-right: 8px;
-    font-weight: 600;
-  }
+  td.ai{ color: var(--ink); }
+  td.ai::before{ content: "→"; color: var(--accent); margin-right: 8px; font-weight: 700; }
 
   /* ---------- Numbered skill sections ---------- */
-  .skill{
-    display: flex;
-    gap: 22px;
-    margin: 44px 0 8px;
-  }
+  .skill{ position: relative; margin: 64px 0 8px; padding-top: 10px; }
   .skill .num{
-    font-family: "Fraunces", Georgia, serif;
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--ink-faint);
-    padding-top: 4px;
-    flex: none;
-    width: 30px;
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 800;
+    font-size: 150px;
+    line-height: 1;
+    position: absolute;
+    top: -46px;
+    right: -6px;
+    color: var(--surface-2);
+    z-index: 0;
+    user-select: none;
   }
-  .skill .body{ flex: 1; min-width: 0; }
-  .skill h2{ margin-top: 0; }
+  .skill .body{ position: relative; z-index: 1; }
+  .skill h2{ margin-top: 0; max-width: 16ch; }
 
-  /* ---------- View pairs (QA view / AI PM view) ---------- */
   .pairs{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0;
-    margin: 22px 0 28px;
+    margin: 24px 0 28px;
     border: 1px solid var(--line);
-    border-radius: 4px;
+    border-radius: 3px;
     overflow: hidden;
     background: var(--surface);
   }
-  .pair{ padding: 18px 20px; }
-  .pair + .pair{ border-left: 1px dashed var(--line); }
+  .pair{ padding: 20px 22px; }
+  .pair + .pair{ border-left: 2px solid var(--accent); }
   .pair .tag{
     font-family: "IBM Plex Mono", monospace;
     font-size: 11px;
@@ -298,44 +342,38 @@
     text-transform: uppercase;
     color: var(--accent);
     display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
+    margin-bottom: 9px;
+    font-weight: 700;
   }
-  .pair p{ font-size: 14.5px; line-height: 1.6; margin: 0; max-width: none; }
+  .pair p{ font-size: 15px; line-height: 1.6; margin: 0; max-width: none; }
   @media (max-width: 560px){
     .pairs{ grid-template-columns: 1fr; }
-    .pair + .pair{ border-left: none; border-top: 1px dashed var(--line); }
+    .pair + .pair{ border-left: none; border-top: 2px solid var(--accent); }
   }
 
   /* ---------- Prompt fail/pass blocks ---------- */
   .prompt-case{
     border: 1px solid var(--line);
-    border-radius: 4px;
+    border-radius: 3px;
     overflow: hidden;
-    margin: 22px 0 30px;
+    margin: 24px 0 30px;
     background: var(--surface);
   }
-  .prompt-row{ padding: 16px 20px; }
+  .prompt-row{ padding: 18px 20px; }
   .prompt-row + .prompt-row{ border-top: 1px solid var(--line); }
   .prompt-row .flag{
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    display: inline-block;
     font-family: "IBM Plex Mono", monospace;
     font-size: 11px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
-    font-weight: 600;
-    margin-bottom: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 12px;
   }
-  .prompt-row.fail .flag{ color: var(--fail); }
-  .prompt-row.pass .flag{ color: var(--pass); }
-  .prompt-row .flag::before{
-    content: "";
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: currentColor;
-  }
+  .prompt-row.fail .flag{ background: var(--accent); color: var(--on-accent); }
+  .prompt-row.pass .flag{ background: var(--pass); color: var(--on-pass); }
   .prompt-text{
     font-family: "IBM Plex Mono", monospace;
     font-size: 13.5px;
@@ -347,36 +385,21 @@
     padding: 12px 14px;
     margin: 0;
   }
-  .prompt-row .note{
-    font-size: 13px;
-    color: var(--ink-faint);
-    margin: 8px 0 0;
-    max-width: none;
-  }
+  .prompt-row .note{ font-size: 13px; color: var(--ink-faint); margin: 9px 0 0; max-width: none; }
 
-  strong.callout{
-    background: linear-gradient(to bottom, transparent 62%, var(--surface-2) 62%);
-    font-weight: 600;
-  }
-
-  hr.rule{
-    border: none;
-    border-top: 1px dashed var(--line);
-    margin: 56px 0 40px;
-  }
+  hr.rule{ border: none; border-top: 3px solid var(--accent); margin: 60px 0 44px; width: 64px; }
 
   /* ---------- Footer ---------- */
-  footer{
-    margin-top: 8px;
-    padding-top: 4px;
-  }
+  footer{ margin-top: 8px; }
   .signoff{
-    font-family: "Fraunces", Georgia, serif;
-    font-style: italic;
-    font-size: 19px;
-    color: var(--ink-soft);
-    margin: 0 0 28px;
-    max-width: 56ch;
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(22px, 3.6vw, 30px);
+    line-height: 1.15;
+    color: var(--ink);
+    margin: 0 0 30px;
+    max-width: 20ch;
   }
   .card-author{
     display: flex;
@@ -386,18 +409,12 @@
     gap: 16px;
     border: 1px solid var(--line);
     background: var(--surface);
-    border-radius: 4px;
-    padding: 18px 22px;
+    border-radius: 3px;
+    padding: 20px 22px;
   }
-  .card-author .who .name{
-    font-weight: 700;
-    font-size: 15px;
-  }
-  .card-author .who .role{
-    font-size: 13px;
-    color: var(--ink-faint);
-  }
-  .links{ display: flex; gap: 14px; font-size: 13px; }
+  .card-author .who .name{ font-weight: 700; font-size: 15px; }
+  .card-author .who .role{ font-size: 13px; color: var(--ink-faint); font-family: "IBM Plex Mono", monospace; }
+  .links{ display: flex; gap: 16px; font-size: 12.5px; }
   .links a{
     font-family: "IBM Plex Mono", monospace;
     color: var(--ink-soft);
@@ -407,35 +424,37 @@
   }
   .links a:hover{ color: var(--accent); border-color: var(--accent); }
 
-  .source-note{
-    margin-top: 20px;
-    font-size: 12.5px;
-    color: var(--ink-faint);
-    text-align: center;
-  }
+  .source-note{ margin-top: 22px; font-size: 12px; color: var(--ink-faint); text-align: center; font-family: "IBM Plex Mono", monospace; }
   .source-note a{ color: var(--ink-faint); }
 </style>
 
 <div class="wrap">
 
-  <div class="case">
-    <div class="case-meta mono">
-      <span>CASE&nbsp;<b>QA&#8209;2AI&#8209;001</b></span>
-      <span>TYPE&nbsp;<b>Career&nbsp;Transition</b></span>
-      <span>READ&nbsp;<b>7&nbsp;min</b></span>
-    </div>
-    <h1>From Test Cases to Prompts</h1>
-    <p class="dek">Why the instinct to break things on purpose is exactly what AI product teams are short on right now.</p>
-    <div class="byline">
-      <span class="name">Rehnuma Tarannum</span>
-      <span class="dot">·</span>
-      <span>QA Engineer</span>
-      <span class="dot">·</span>
+  <div class="kicker-row">
+    <span class="kicker">The QA → AI Desk</span>
+    <span class="issue-tag">Case QA-2AI-001 · 7 min read</span>
+  </div>
+  <div class="rule-thick"></div>
+
+  <h1><span class="line">From Test Cases</span><span class="line">To <span class="hl">Prompts</span></span></h1>
+  <p class="dek">Why the instinct to break things on purpose is exactly what AI product teams are short on right now.</p>
+
+  <div class="byline-row">
+    <span class="who">By <b>Rehnuma Tarannum</b> — QA Engineer</span>
+    <span class="links">
       <a href="https://www.linkedin.com/in/rehnuma-tarannum1/" target="_blank" rel="noopener">LinkedIn</a>
       <a href="https://github.com/RehnumaT" target="_blank" rel="noopener">GitHub</a>
-    </div>
-    <div class="verdict">Verdict: QA → AI PM is a transferable skill set</div>
+    </span>
   </div>
+
+  <nav class="contents">
+    <a href="#comparison">Comparison</a><span class="sep">•</span>
+    <a href="#skill-01">Skill 01</a><span class="sep">•</span>
+    <a href="#skill-02">Skill 02</a><span class="sep">•</span>
+    <a href="#verdict">Verdict</a>
+  </nav>
+
+  <div class="verdict">Verdict: QA → AI PM is a transferable skill set</div>
 
   <article>
     <p class="lede">If you've spent years in Quality Assurance, your default state of mind is professional skepticism. When a developer hands you a shiny new feature, your first thought isn't <em>"How wonderful!"</em> — it's <em>"Okay, how is a user going to break this, and what happens when they do?"</em></p>
@@ -446,7 +465,7 @@
 
     <p>And who spends their entire career defining expected behavior and testing boundaries? You do.</p>
 
-    <h2>The Anatomy Comparison: Test Case vs. System Prompt</h2>
+    <h2 id="comparison">The Anatomy Comparison</h2>
     <p>To understand why QA professionals transition so naturally into AI PM and prompt engineering roles, look at how your daily workflow maps directly onto working with a large language model.</p>
 
     <div class="table-scroll">
@@ -467,9 +486,12 @@
 
     <p>Now look at how a modern AI prompt is structured. Advanced prompting isn't magic or creative writing; it's spec-driven logic. You define persona, context, constraints, and formatting rules.</p>
 
-    <blockquote><p>A well-structured system prompt is essentially an executable test specification.</p></blockquote>
+    <div class="breakout">
+      <div class="mark">"</div>
+      <p>A well-structured system prompt is essentially an executable test specification.</p>
+    </div>
 
-    <div class="skill">
+    <div class="skill" id="skill-01">
       <div class="num">01</div>
       <div class="body">
         <h2>Anticipating Edge Cases</h2>
@@ -491,10 +513,10 @@
       </div>
     </div>
 
-    <div class="skill">
+    <div class="skill" id="skill-02">
       <div class="num">02</div>
       <div class="body">
-        <h2>Clear Acceptance Criteria = Structured Output</h2>
+        <h2>Acceptance Criteria = Structured Output</h2>
         <p>Have you ever stared at a vague Jira ticket that read <em>"Make the search bar smarter"</em>? As QA, your immediate response was probably to push back: smarter how? By keyword or semantic intent? What's the latency threshold? What happens on zero results?</p>
         <p>You thrive on precision — software only does what you explicitly tell it to do. With LLMs, ambiguity is the enemy. Prompt an AI with <em>"Write a summary of this document"</em> and you'll get wildly inconsistent lengths, tones, and formats. The fix is the same rigor you already use writing acceptance criteria.</p>
 
@@ -517,7 +539,7 @@
 
     <hr class="rule">
 
-    <h2>From Gatekeeper to Architect</h2>
+    <h2 id="verdict">From Gatekeeper to Architect</h2>
     <p>Transitioning from QA to an AI Product Manager doesn't mean leaving your analytical roots behind — it means scaling them. Instead of testing code someone else wrote, you're defining the intent, behavior, and safety parameters of a cognitive system.</p>
     <p>Your superpower was never that you can build a neural network from scratch. It's that <strong class="callout">you know how software breaks, how requirements fail, and how to define boundaries.</strong> In a world full of AI hype, that disciplined, QA-honed mindset is precisely what product teams are searching for.</p>
   </article>
@@ -527,7 +549,7 @@
     <div class="card-author">
       <div class="who">
         <div class="name">Rehnuma Tarannum</div>
-        <div class="role">QA Engineer, thinking in prompts</div>
+        <div class="role">QA ENGINEER, THINKING IN PROMPTS</div>
       </div>
       <div class="links">
         <a href="https://www.linkedin.com/in/rehnuma-tarannum1/" target="_blank" rel="noopener">LinkedIn ↗</a>
