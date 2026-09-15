@@ -2,7 +2,7 @@
 
 ### Why QA Engineers Make the Best Prompt Engineers
 
-*By Rehnuma Tarannum — QA Engineer* · [LinkedIn](https://www.linkedin.com/in/rehnuma-tarannum1/) · [GitHub](https://github.com/RehnumaT)
+*By Rehnuma Tarannum — Senior AI QA Engineer* · [LinkedIn](https://www.linkedin.com/in/rehnuma-tarannum1/) · [GitHub](https://github.com/RehnumaT)
 
 **Read the designed version →** [rehnuma-test-cases-to-prompts (live page)](https://claude.ai/code/artifact/f8e99adc-d896-4734-a34e-19bbf25ab7ee)
 
