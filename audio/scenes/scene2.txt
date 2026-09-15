@@ -1,0 +1,1 @@
+A system prompt has context, guardrails, an output schema, and adversarial testing. It's the same document, wearing a different name.

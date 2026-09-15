@@ -1,0 +1,14 @@
+For years, Q-A was simple in one sense: input A, plus input B, always equals C. Deterministic. Testable.
+But A-I doesn't work that way anymore. Now, A plus B just... usually equals C. And that "usually" is the whole problem.
+
+Companies are racing to ship A-I features, but the real bottleneck isn't building the model, it's controlling what it does.
+And that's exactly the muscle Q-A engineers have been building their entire careers: defining expected behavior, and testing the edges where it breaks.
+
+A test case has pre-conditions, inputs, and expected results. A system prompt has context, constraints, and an output format.
+They're the same document. When you write acceptance criteria, you're already doing prompt engineering, you just didn't have the title yet.
+
+This isn't about becoming a machine learning engineer overnight. It's smaller than that, and more useful.
+You start writing prompts your team can actually rely on. You catch the hallucination before it ships. You get pulled into the room when the product team is deciding what the A-I should and shouldn't do.
+That's the shift, from gatekeeper, to architect.
+
+I wrote the full breakdown, test case by test case. Link's below, let me know if it matches how you already think.

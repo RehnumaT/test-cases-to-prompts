@@ -1,0 +1,1 @@
+For years, software was deterministic: input A, plus input B, always equals C. But A-I doesn't work that way. Now, A plus B just... usually equals C. And that "usually" is the whole problem.

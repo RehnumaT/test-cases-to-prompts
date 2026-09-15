@@ -8,6 +8,8 @@
 
 **Presenter video script →** [video-script.md](video-script.md) — a timed voiceover script (cause → goal → purpose → outcome) for use with an AI-avatar tool like Synthesia/HeyGen/D-ID, or to record yourself
 
+**AI narration →** the live page now plays a 36-second narrated recap (macOS built-in text-to-speech, synced to 4 visual scenes). Source clips are in [`audio/`](audio) — `main-narration.m4a`/`teaser-narration.m4a` are full readings of the script above, `audio/scenes/` are the 4 shorter clips embedded in the page itself. Note: this is a synthetic system voice, not a human-realistic one — swap in an ElevenLabs/HeyGen render there for a more natural voice.
+
 ---
 
 If you've spent years in Quality Assurance, your default state of mind is professional skepticism. When a developer hands you a shiny new feature, your first thought isn't *"How wonderful!"* — it's *"Okay, how is a user going to break this, and what happens when they do?"*

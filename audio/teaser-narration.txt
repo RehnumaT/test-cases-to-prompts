@@ -1,0 +1,4 @@
+For years, Q-A was simple: input A, plus input B, always equals C. A-I broke that. Now A plus B just... usually equals C.
+But here's the thing, a test case and a system prompt are the same document. Pre-conditions and inputs. Context and constraints. Expected results and output format.
+If you've spent years writing acceptance criteria, you've been doing prompt engineering this whole time. You just didn't have the title yet.
+Full breakdown's linked below.
